@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ExpenseTrackerCoreMVC.Models.Expense>
+
+<h2>Expenses</h2>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Date</th>
+            </tr>
+         </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>@item.Name</tr>
+                <tr>@item.Amount</tr>
+                <tr>@item.Category</tr>
+                <tr>@item.DateAdded.ToString("yyyy-MM-dd")</tr>
+            }
+        </tbody>
+    </table>
+</div>
