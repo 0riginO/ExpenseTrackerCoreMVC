@@ -1,0 +1,20 @@
+﻿@model ExpenseTrackerCoreMVC.Models.Expense
+
+<div class="container">
+    <h2>Add Expense</h2>
+    <form asp-action="Create" method="post">
+        <div>
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control"/>
+        </div>
+        <div>
+            <label asp-for="Amount" class="form-label"></label>
+            <input asp-for="Amount" class="form-control" />
+        </div>
+        <div>
+            <label asp-for="Category" class="form-label"></label>
+            <input asp-for="Category" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Add Expense</button>
+    </form>
+</div>
