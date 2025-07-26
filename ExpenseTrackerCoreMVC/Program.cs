@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ExpenseTrackerCoreMVC.Data;
+using ExpenseTrackerCoreMVC.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Register the DbContext with the dependency injection container
 builder.Services.AddDbContext<ExpenseTrackerCoreMVCDbContext>(options =>
 options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IExpensesService, ExpensesService>();
 
 var app = builder.Build();
 
