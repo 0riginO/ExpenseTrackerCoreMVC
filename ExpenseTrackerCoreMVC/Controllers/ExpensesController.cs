@@ -1,6 +1,7 @@
 ﻿using ExpenseTrackerCoreMVC.Data;
 using ExpenseTrackerCoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTrackerCoreMVC.Controllers
 {
@@ -14,9 +15,9 @@ namespace ExpenseTrackerCoreMVC.Controllers
 		{ 
 			_context = context; // Assign the injected context to the private field
 		}
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			var expenses = _context.Expenses.ToList();
+			var expenses = _context.Expenses.ToListAsync();
 			return View(expenses);
 		}
 		public IActionResult Create()
@@ -25,12 +26,12 @@ namespace ExpenseTrackerCoreMVC.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Create(Expense expense)
+		public async Task<IActionResult> Create(Expense expense)
 		{
 			if (ModelState.IsValid)
 			{ 
 				_context.Expenses.Add(expense); // Add the new expense to the context
-				_context.SaveChanges(); // Save changes to the database
+				await _context.SaveChangesAsync(); // Save changes to the database
 				return RedirectToAction("Index"); // Redirect to the Index action after creation
 			}
 			return View();
