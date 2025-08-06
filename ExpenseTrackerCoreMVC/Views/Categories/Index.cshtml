@@ -4,3 +4,26 @@
     <a class="btn btn-primary mb-3" asp-action="Create" asp-controller="Categories">Add</a>
     <a class="btn btn-primary mb-3" asp-action="Index" asp-controller="Home">Back</a>
 </div>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.DateAdded.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
