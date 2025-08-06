@@ -6,5 +6,7 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 	{
 		Task<IEnumerable<Expense>> GetAllExpensesAsync();
 		Task Add(Expense expense);
+		Task Update(int id, Expense expense);
+    	Task<Expense> GetExpenseByIdAsync(int id);
 	}
 }
