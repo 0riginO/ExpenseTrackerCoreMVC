@@ -1,0 +1,23 @@
+﻿@model ExpenseTrackerCoreMVC.Models.Expense
+
+<div class="container">
+    <h2>Update Expense</h2>
+    <a class="btn btn-secondary mb-3" asp-action="Index" asp-controller="Expenses">Back</a>
+    <form asp-action="Update" method="post">
+        <div>
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <div>
+            <label asp-for="Amount" class="form-label"></label>
+            <input asp-for="Amount" class="form-control" />
+        </div>
+        <div>
+            <label asp-for="Category" class="form-label"></label>
+            <input asp-for="Category" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Update Expense</button>
+    </form>
+</div>
+
+
