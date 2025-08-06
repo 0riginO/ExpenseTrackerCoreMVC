@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTrackerCoreMVC.Data.Services
 {
-	public class CategoriesService : ICategoriesServices
+	public class CategoriesService : ICategoriesService
 	{
 		private readonly ExpenseTrackerCoreMVCDbContext _context;
 		public CategoriesService(ExpenseTrackerCoreMVCDbContext context)
