@@ -1,0 +1,13 @@
+﻿@model ExpenseTrackerCoreMVC.Models.Category
+
+<div class="container">
+    <h2>Add Category</h2>
+    <a class="btn btn-secondary mb-3" asp-action="Index" asp-controller="Categories">Back</a>
+    <form asp-action="Create" method="post">
+        <div>
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Add Category</button>
+    </form>
+</div>
