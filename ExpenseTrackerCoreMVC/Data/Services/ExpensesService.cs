@@ -15,10 +15,27 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 			var expenses = await _context.Expenses.ToListAsync();
 			return expenses;
 		}
+		public async Task<Expense> GetExpenseByIdAsync(int id)
+		{
+			return await _context.Expenses.FindAsync(id);
+		}
 		public async Task Add(Expense expense)
 		{
 			await _context.Expenses.AddAsync(expense);
 			await _context.SaveChangesAsync();
+		}
+		public async Task Update(int id, Expense expense)
+		{
+			var existingExpense = await _context.Expenses.FindAsync(id);
+			if (existingExpense != null)
+			{
+				existingExpense.Name = expense.Name;
+				existingExpense.Amount = expense.Amount;
+				existingExpense.Category = expense.Category;
+				//existingExpense.DateAdded = DateTime.Now; // Update the date added to the current time
+
+				await _context.SaveChangesAsync();
+			}
 		}
 	}
 }
