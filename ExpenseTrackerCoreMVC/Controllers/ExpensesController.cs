@@ -26,13 +26,37 @@ namespace ExpenseTrackerCoreMVC.Controllers
 			return View();
 		}
 
+		public async Task<IActionResult> Update(int id)
+		{
+			var expense = await _expensesService.GetExpenseByIdAsync(id); // Fetch the expense by ID asynchronously
+			if (expense == null)
+			{
+				return NotFound(); // Return 404 if the expense is not found
+			}
+			return View(expense);
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> Create(Expense expense)
 		{
 			if (ModelState.IsValid)
-			{ 
+			{
 				await _expensesService.Add(expense); // Add the new expense asynchronously
 				return RedirectToAction("Index"); // Redirect to the Index action after creation
+			}
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> Update(int id, Expense expense)
+		{
+			if (id != expense.Id)
+			{
+				return NotFound();
+			}
+			if (ModelState.IsValid)
+			{
+				await _expensesService.Update(id, expense); // Update the expense asynchronously
+				return RedirectToAction("Index"); // Redirect to the Index action after update
 			}
 			return View();
 		}
