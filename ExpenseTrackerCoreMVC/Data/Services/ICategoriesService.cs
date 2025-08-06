@@ -2,7 +2,7 @@
 
 namespace ExpenseTrackerCoreMVC.Data.Services
 {
-	public interface ICategoriesServices
+	public interface ICategoriesService
 	{
 		Task<IEnumerable<Category>> GetAllCategoriesAsync();
 		Task Add(Category category);
