@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ExpenseTrackerCoreMVCDbContext>(options =>
 options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IExpensesService, ExpensesService>();
+builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 
 var app = builder.Build();
 
