@@ -33,5 +33,15 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 				await _context.SaveChangesAsync();
 			}
 		}
+		public async Task Delete(int id)
+		{
+			var category = await _context.Categories.FindAsync(id);
+			if (category != null)
+			{
+				_context.Categories.Remove(category);
+				await _context.SaveChangesAsync();
+
+			}
+		}
 	}
 }

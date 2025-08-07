@@ -60,5 +60,16 @@ namespace ExpenseTrackerCoreMVC.Controllers
 			}
 			return View();
 		}
+		[HttpPost]
+		public async Task<IActionResult> Delete(int id)
+		{
+			var expense = await _categoriesService.GetCategoryByIdAsync(id); // Fetch the expense by ID asynchronously
+			if (expense == null)
+			{
+				return NotFound(); // Return 404 if the expense is not found
+			}
+			await _categoriesService.Delete(id);
+			return RedirectToAction("Index");
+		}
 	}
 }

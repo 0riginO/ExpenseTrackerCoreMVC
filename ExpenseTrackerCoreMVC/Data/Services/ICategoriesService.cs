@@ -8,5 +8,6 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 		Task Add(Category category);
 		Task<Category> GetCategoryByIdAsync(int id);
 		Task Update(int id, Category category);
+		Task Delete(int id);
 	}
 }
