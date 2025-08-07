@@ -35,5 +35,30 @@ namespace ExpenseTrackerCoreMVC.Controllers
 			}
 			return View();
 		}
+
+		public async Task<IActionResult> Update(int id)
+		{
+			var category = await _categoriesService.GetCategoryByIdAsync(id); // Fetch the category by ID asynchronously
+			if (category == null)
+			{
+				return NotFound(); // Return 404 if the category is not found
+			}
+			return View(category);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Update(int id, Category category)
+		{
+			if (id != category.Id)
+			{
+				return NotFound();
+			}
+			if (ModelState.IsValid)
+			{
+				await _categoriesService.Update(id, category); // Update the category asynchronously
+				return RedirectToAction("Index"); // Redirect to the Index action after update
+			}
+			return View();
+		}
 	}
 }
