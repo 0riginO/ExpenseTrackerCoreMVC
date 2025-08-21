@@ -1,29 +1,36 @@
-﻿using ExpenseTrackerCoreMVC.Data;
-using ExpenseTrackerCoreMVC.Data.Services;
+﻿using ExpenseTrackerCoreMVC.Data.Services;
 using ExpenseTrackerCoreMVC.Models;
+using ExpenseTrackerCoreMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTrackerCoreMVC.Controllers
 {
 	public class ExpensesController : Controller
 	{
-		// Readonly field to store the injected database context
 		private readonly IExpensesService _expensesService;
+		private readonly ICategoriesService _categoriesService;
 
-		// Constructor that receives the DbContext via Dependency Injection
-		public ExpensesController(IExpensesService expensesService)
+		public ExpensesController(IExpensesService expensesService, ICategoriesService categoriesService)
 		{
-			_expensesService = expensesService; // Assign the injected context to the private field
+			_expensesService = expensesService;
+			_categoriesService = categoriesService;
 		}
 		public async Task<IActionResult> Index()
 		{
-			var expenses = await _expensesService.GetAllExpensesAsync(); // Fetch all expenses asynchronously
+			var expenses = await _expensesService.GetAllExpensesAsync();
 			return View(expenses);
 		}
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
-			return View();
+			var categories = await _categoriesService.GetAllCategoriesAsync();
+
+			var viewModel = new ExpenseAddEditFormViewModel
+			{
+				Expense = new Expense(),
+				Categories = categories
+			};
+
+			return View(viewModel);
 		}
 
 		public async Task<IActionResult> Update(int id)
@@ -44,7 +51,10 @@ namespace ExpenseTrackerCoreMVC.Controllers
 				await _expensesService.Add(expense); // Add the new expense asynchronously
 				return RedirectToAction("Index"); // Redirect to the Index action after creation
 			}
-			return View();
+			else
+			{
+				return StatusCode(400, "Bad Request");
+			}
 		}
 		[HttpPost]
 		public async Task<IActionResult> Update(int id, Expense expense)
