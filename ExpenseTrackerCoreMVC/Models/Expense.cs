@@ -10,8 +10,13 @@ namespace ExpenseTrackerCoreMVC.Models
 		[Required]
 		[Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
 		public decimal Amount { get; set; }
+
+		// Foreign Key
 		[Required]
-		public string Category { get; set; } = string.Empty;
+		public int CategoryId { get; set; }
+
+		// Navigation Property
+		//public Category Category { get; set; }
 		public DateTime DateAdded { get; set; } = DateTime.Now;
 	}
 }
