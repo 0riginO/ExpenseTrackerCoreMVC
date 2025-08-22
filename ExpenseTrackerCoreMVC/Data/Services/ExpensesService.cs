@@ -31,7 +31,7 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 			{
 				existingExpense.Name = expense.Name;
 				existingExpense.Amount = expense.Amount;
-				existingExpense.Category = expense.Category;
+				existingExpense.CategoryId = expense.CategoryId;
 				//existingExpense.DateAdded = DateTime.Now; // Update the date added to the current time
 
 				await _context.SaveChangesAsync();
