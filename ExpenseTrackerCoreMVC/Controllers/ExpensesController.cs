@@ -35,12 +35,19 @@ namespace ExpenseTrackerCoreMVC.Controllers
 
 		public async Task<IActionResult> Update(int id)
 		{
+			var categories = await _categoriesService.GetAllCategoriesAsync(); // Fetch the categories asynchronously
 			var expense = await _expensesService.GetExpenseByIdAsync(id); // Fetch the expense by ID asynchronously
+
+			var viewModel = new ExpenseAddEditFormViewModel
+			{
+				Expense = expense,
+				Categories = categories
+			};
 			if (expense == null)
 			{
 				return NotFound(); // Return 404 if the expense is not found
 			}
-			return View(expense);
+			return View(viewModel);
 		}
 
 		[HttpPost]
