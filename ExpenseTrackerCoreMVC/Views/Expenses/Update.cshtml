@@ -1,20 +1,29 @@
-﻿@model ExpenseTrackerCoreMVC.Models.Expense
+﻿@using ExpenseTrackerCoreMVC.ViewModels
+
+@model ExpenseAddEditFormViewModel
 
 <div class="container">
     <h2>Update Expense</h2>
     <a class="btn btn-secondary mb-3" asp-action="Index" asp-controller="Expenses">Back</a>
     <form asp-action="Update" method="post">
-        <div>
-            <label asp-for="Name" class="form-label"></label>
-            <input asp-for="Name" class="form-control" />
+        <div class="d-none">
+            <label asp-for="Expense.Id" class="form-label"></label>
+            <input asp-for="Expense.Id" class="form-control" disabled/>
         </div>
         <div>
-            <label asp-for="Amount" class="form-label"></label>
-            <input asp-for="Amount" class="form-control" />
+            <label asp-for="Expense.Name" class="form-label"></label>
+            <input asp-for="Expense.Name" class="form-control" />
         </div>
         <div>
-            <label asp-for="Category" class="form-label"></label>
-            <input asp-for="Category" class="form-control" />
+            <label asp-for="Expense.Amount" class="form-label"></label>
+            <input asp-for="Expense.Amount" class="form-control" />
+        </div>
+        <div>
+            <label asp-for="Expense.CategoryId" class="form-label"></label>
+            @Html.DropDownListFor(model => model.Expense.CategoryId,
+                        new SelectList(Model.Categories, "Id", "Name"),
+                        "Select Category",
+                        new { @class = "form-control" })
         </div>
         <button type="submit" class="btn btn-primary mt-2">Update Expense</button>
     </form>
