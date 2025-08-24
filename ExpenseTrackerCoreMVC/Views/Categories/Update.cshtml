@@ -4,6 +4,10 @@
     <h2>Update Category</h2>
     <a class="btn btn-secondary mb-3" asp-action="Index" asp-controller="Categories">Back</a>
     <form asp-action="Update" method="post">
+        <div class="d-none">
+            <label asp-for="Id" class="form-label"></label>
+            <input asp-for="Id" class="form-control" readonly />
+        </div>
         <div>
             <label asp-for="Name" class="form-label"></label>
             <input asp-for="Name" class="form-control" />
