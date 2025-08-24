@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ExpenseTrackerCoreMVC.Models
 {
@@ -14,9 +15,10 @@ namespace ExpenseTrackerCoreMVC.Models
 		// Foreign Key
 		[Required]
 		public int CategoryId { get; set; }
+		public DateTime DateAdded { get; set; } = DateTime.Now;
 
 		// Navigation Property
+		[ValidateNever]
 		public Category Category { get; set; }
-		public DateTime DateAdded { get; set; } = DateTime.Now;
 	}
 }

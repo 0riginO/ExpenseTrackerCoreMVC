@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ExpenseTrackerCoreMVC.Models
 {
@@ -9,6 +10,7 @@ namespace ExpenseTrackerCoreMVC.Models
 		public string Name { get; set; } = string.Empty;
 		public DateTime DateAdded { get; set; } = DateTime.Now;
 
+		[ValidateNever]
 		public ICollection<Expense> Expenses { get; set; }
 	}
 }
