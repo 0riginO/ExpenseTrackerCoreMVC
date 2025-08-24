@@ -23,7 +23,7 @@
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Amount.ToString("N2")</td>
-                    <td>@item.CategoryId</td>
+                    <td>@item.Category.Name</td>
                     <td>@item.DateAdded.ToString("yyyy-MM-dd")</td>
                     <td style="text-align:center;">
                         <a class="btn btn-primary" asp-action="Update" asp-controller="Expenses" asp-route-id="@item.Id">Edit</a>
