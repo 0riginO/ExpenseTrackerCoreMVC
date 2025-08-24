@@ -9,5 +9,6 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 		Task Update(int id, Expense expense);
     	Task<Expense> GetExpenseByIdAsync(int id);
 		Task Delete(int id);
+		Task<IEnumerable<Expense>> GetAllExpensesWithCategoriesAsync();
 	}
 }

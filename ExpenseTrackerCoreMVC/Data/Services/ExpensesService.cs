@@ -15,6 +15,11 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 			var expenses = await _context.Expenses.ToListAsync();
 			return expenses;
 		}
+		public async Task<IEnumerable<Expense>> GetAllExpensesWithCategoriesAsync()
+		{
+			var expenses = await _context.Expenses.Include(e => e.Category).ToListAsync();
+			return expenses;
+		}
 		public async Task<Expense> GetExpenseByIdAsync(int id)
 		{
 			return await _context.Expenses.FindAsync(id);

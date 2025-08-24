@@ -17,7 +17,7 @@ namespace ExpenseTrackerCoreMVC.Controllers
 		}
 		public async Task<IActionResult> Index()
 		{
-			var expenses = await _expensesService.GetAllExpensesAsync();
+			var expenses = await _expensesService.GetAllExpensesWithCategoriesAsync();
 			return View(expenses);
 		}
 		public async Task<IActionResult> Create()
