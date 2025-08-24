@@ -16,7 +16,7 @@ namespace ExpenseTrackerCoreMVC.Models
 		public int CategoryId { get; set; }
 
 		// Navigation Property
-		//public Category Category { get; set; }
+		public Category Category { get; set; }
 		public DateTime DateAdded { get; set; } = DateTime.Now;
 	}
 }
