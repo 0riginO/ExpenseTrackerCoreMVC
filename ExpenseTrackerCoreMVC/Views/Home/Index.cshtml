@@ -12,12 +12,13 @@
     <canvas style="max-width: 450px; max-height:450px;" id="chartPie"></canvas>
 </div>
 
+<canvas style="max-width: 900px; max-height:450px;" id="chartLine"></canvas> 
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    const ctx = document.getElementById('chartBar');
+    const ctx = document.getElementById('chartPie');
 
     fetch('/Expenses/GetExpensesGroupedByCategory')
         .then(response => response.json())
@@ -27,6 +28,7 @@
                   data: {
                     labels: data.map(d =>d.categoryName),
                     datasets: [{
+                      label: 'Expenses Per Category',
                       data: data.map(d => d.totalAmount),
                     }]
                   },
@@ -35,5 +37,25 @@
 
         })
 
+</script>
 
+<script>
+    const lineChart = document.getElementById('chartLine');
+
+    fetch('/Expenses/GetExpensesSumByDate')
+        .then(response => response.json())
+        .then(data => {
+            new Chart(lineChart, {
+                  type: 'line',
+                  data: {
+                    labels: data.map(d =>d.dateAdded),
+                    datasets: [{
+                        label: 'Expenses Over Time',
+                      data: data.map(d => d.totalAmount),
+                    }],
+                  },
+
+            });
+
+        })
 </script>
