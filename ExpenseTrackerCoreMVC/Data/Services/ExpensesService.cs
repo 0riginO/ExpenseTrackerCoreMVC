@@ -75,5 +75,16 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 					TotalAmount = d.Sum(e => e.Amount)
 				});
 		}
+
+		public IQueryable GetAvgExpensesByCategory()
+		{
+			return _context.Expenses
+				.GroupBy(e => new { e.CategoryId, e.Category.Name })
+				.Select(g => new
+				{
+					CategoryName = g.Key.Name,
+					AverageAmount = g.Average(e => e.Amount)
+				});
+		}
 	}
 }

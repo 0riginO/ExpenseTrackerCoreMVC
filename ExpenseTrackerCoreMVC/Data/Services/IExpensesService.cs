@@ -12,5 +12,6 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 		Task<IEnumerable<Expense>> GetAllExpensesWithCategoriesAsync();
 		IQueryable GetExpensesGroupedByCategory();
 		IQueryable GetExpensesSumByDate();
+		IQueryable GetAvgExpensesByCategory();
 	}
 }

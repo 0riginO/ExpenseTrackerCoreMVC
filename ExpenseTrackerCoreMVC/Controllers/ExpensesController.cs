@@ -100,5 +100,11 @@ namespace ExpenseTrackerCoreMVC.Controllers
 			var groupedExpenses = _expensesService.GetExpensesSumByDate();
 			return Json(groupedExpenses);
 		}
+		[HttpGet]
+		public IActionResult GetAvgExpensesByCategory()
+		{
+			var groupedExpenses = _expensesService.GetAvgExpensesByCategory();
+			return Json(groupedExpenses);
+		}
 	}
 }
