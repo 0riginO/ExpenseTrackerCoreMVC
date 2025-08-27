@@ -91,3 +91,27 @@
 
         })
 </script>
+<canvas style="max-width: 900px; max-height:450px;" id="chartTopCategories"></canvas>
+
+<script>
+    const topCatChart = document.getElementById('chartTopCategories');
+
+    fetch('/Expenses/GetTopNExpensesByCategory?num=5')
+        .then(res => res.json())
+        .then(data => {
+            new Chart(topCatChart, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => d.categoryName),
+                    datasets: [{
+                        label: 'Top Categories',
+                        data: data.map(d => d.totalAmount),
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+                    }]
+                },
+                options: {
+                    indexAxis: 'y'
+                }
+            });
+        });
+</script>
