@@ -1,20 +1,50 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <a class="btn btn-secondary mb-3" asp-action="Index" asp-controller="Expenses">Expenses</a>
-    <a class="btn btn-secondary mb-3" asp-action="Index" asp-controller="Categories">Categories</a>
+    <h1 class="display-4">Dashboard</h1>
 </div>
-<div>
-    <canvas style="max-width: 450px; max-height:450px;" id="chartPie"></canvas>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <!-- Pie Chart -->
+            <div class="card shadow-sm p-3">
+                <canvas id="chartPie"></canvas>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-8 mb-4">
+            <!-- Line Chart -->
+            <div class="card shadow-sm p-3">
+                <canvas id="chartLine"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <!-- Bar Chart -->
+            <div class="card shadow-sm p-3">
+                <canvas id="chartBar"></canvas>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <!-- Top Categories Bar Chart -->
+            <div class="card shadow-sm p-3">
+                <canvas id="chartTopCategories"></canvas>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <!-- Expense Frequency by Category Bar Chart -->
+            <div class="card shadow-sm p-3">
+                <canvas id="chartFrequency"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
-
-<canvas style="max-width: 900px; max-height:450px;" id="chartLine"></canvas>
-<canvas style="max-width: 900px; max-height:450px;" id="chartBar"></canvas>
-
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -25,75 +55,61 @@
         .then(response => response.json())
         .then(data => {
             new Chart(ctx, {
-                  type: 'pie',
-                  data: {
-                    labels: data.map(d =>d.categoryName),
+                type: 'pie',
+                data: {
+                    labels: data.map(d => d.categoryName),
                     datasets: [{
-                      label: 'Expenses Per Category',
-                      data: data.map(d => d.totalAmount),
+                        label: 'Expenses Per Category',
+                        data: data.map(d => d.totalAmount),
                     }]
-                  },
-
+                },
             });
+        });
 
-        })
-
-</script>
-
-<script>
     const lineChart = document.getElementById('chartLine');
 
     fetch('/Expenses/GetExpensesSumByDate')
         .then(response => response.json())
         .then(data => {
             new Chart(lineChart, {
-                  type: 'line',
-                  data: {
-                    labels: data.map(d =>d.dateAdded),
+                type: 'line',
+                data: {
+                    labels: data.map(d => d.dateAdded),
                     datasets: [{
                         label: 'Expenses Over Time',
-                      data: data.map(d => d.totalAmount),
+                        data: data.map(d => d.totalAmount),
                     }],
-                  },
-
+                },
             });
+        });
 
-        })
-</script>
-
-<script>
     const barChart = document.getElementById('chartBar');
 
     fetch('/Expenses/GetAvgExpensesByCategory')
         .then(response => response.json())
         .then(data => {
             new Chart(barChart, {
-                  type: 'bar',
-                  data: {
-                    labels: data.map(d =>d.categoryName),
+                type: 'bar',
+                data: {
+                    labels: data.map(d => d.categoryName),
                     datasets: [{
-                            label: 'Average Expense per Category',
-                            data: data.map(d => d.averageAmount),
-                            backgroundColor: [
-                              'rgba(255, 99, 132, 0.2)',
-                              'rgba(255, 159, 64, 0.2)',
-                              'rgba(255, 205, 86, 0.2)',
-                              'rgba(75, 192, 192, 0.2)',
-                              'rgba(54, 162, 235, 0.2)',
-                              'rgba(153, 102, 255, 0.2)',
-                              'rgba(201, 203, 207, 0.2)'
-                            ],
-                            borderWidth: 1
+                        label: 'Average Expense per Category',
+                        data: data.map(d => d.averageAmount),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderWidth: 1
                     }],
-                  },
-
+                },
             });
+        });
 
-        })
-</script>
-<canvas style="max-width: 900px; max-height:450px;" id="chartTopCategories"></canvas>
-
-<script>
     const topCatChart = document.getElementById('chartTopCategories');
 
     fetch('/Expenses/GetTopNExpensesByCategory?num=5')
@@ -114,10 +130,7 @@
                 }
             });
         });
-</script>
-<canvas style="max-width: 900px; max-height:450px;" id="chartFrequency"></canvas>
 
-<script>
     const freqChart = document.getElementById('chartFrequency');
 
     fetch('/Expenses/GetExpenseFrequencyByCategory')
@@ -133,6 +146,33 @@
                         backgroundColor: 'rgba(255, 159, 64, 0.7)'
                     }]
                 }
+            });
+        });
+
+    const avgExpensesChart = document.getElementById('chartAvgExpenses');
+
+    fetch('/Expenses/GetAvgExpensesByCategory')
+        .then(res => res.json())
+        .then(data => {
+            new Chart(avgExpensesChart, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => d.categoryName),
+                    datasets: [{
+                        label: 'Average Expenses per Category',
+                        data: data.map(d => d.averageAmount),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
             });
         });
 </script>
