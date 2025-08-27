@@ -11,7 +11,13 @@ namespace ExpenseTrackerCoreMVC.Data
 
 		public DbSet<Expense> Expenses { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
 
+			// Seed the database with data
+			DataSeeder.SeedData(modelBuilder);
+		}
 
 	}
 }
