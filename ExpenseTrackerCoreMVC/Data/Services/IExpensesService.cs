@@ -11,5 +11,6 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 		Task Delete(int id);
 		Task<IEnumerable<Expense>> GetAllExpensesWithCategoriesAsync();
 		IQueryable GetExpensesGroupedByCategory();
+		IQueryable GetExpensesSumByDate();
 	}
 }

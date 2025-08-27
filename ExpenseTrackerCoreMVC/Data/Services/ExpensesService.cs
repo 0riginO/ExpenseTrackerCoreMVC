@@ -64,5 +64,16 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 					//ExpenseCount = g.Count()
 				});
 		}
+
+		public IQueryable GetExpensesSumByDate()
+		{
+			return _context.Expenses
+				.GroupBy(e => e.DateAdded)
+				.Select(d => new
+				{
+					DateAdded = d.Key,
+					TotalAmount = d.Sum(e => e.Amount)
+				});
+		}
 	}
 }
