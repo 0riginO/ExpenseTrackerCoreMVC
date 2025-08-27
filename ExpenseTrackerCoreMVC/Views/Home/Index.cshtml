@@ -115,3 +115,24 @@
             });
         });
 </script>
+<canvas style="max-width: 900px; max-height:450px;" id="chartFrequency"></canvas>
+
+<script>
+    const freqChart = document.getElementById('chartFrequency');
+
+    fetch('/Expenses/GetExpenseFrequencyByCategory')
+        .then(res => res.json())
+        .then(data => {
+            new Chart(freqChart, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => d.categoryName),
+                    datasets: [{
+                        label: 'Number of Expenses',
+                        data: data.map(d => d.expenseCount),
+                        backgroundColor: 'rgba(255, 159, 64, 0.7)'
+                    }]
+                }
+            });
+        });
+</script>
