@@ -8,3 +8,32 @@
     <a class="btn btn-secondary mb-3" asp-action="Index" asp-controller="Expenses">Expenses</a>
     <a class="btn btn-secondary mb-3" asp-action="Index" asp-controller="Categories">Categories</a>
 </div>
+<div>
+    <canvas style="max-width: 450px; max-height:450px;" id="chartPie"></canvas>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('chartBar');
+
+    fetch('/Expenses/GetExpensesGroupedByCategory')
+        .then(response => response.json())
+        .then(data => {
+            new Chart(ctx, {
+                  type: 'pie',
+                  data: {
+                    labels: data.map(d =>d.categoryName),
+                    datasets: [{
+                      data: data.map(d => d.totalAmount),
+                    }]
+                  },
+
+            });
+
+        })
+
+
+</script>
