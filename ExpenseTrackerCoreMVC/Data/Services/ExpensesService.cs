@@ -51,5 +51,18 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 				await _context.SaveChangesAsync();
 			}
 		}
+
+		public IQueryable GetExpensesGroupedByCategory()
+		{
+			return _context.Expenses
+				.GroupBy(e => new { e.CategoryId, e.Category.Name })
+				.Select(g => new
+				{
+					CategoryId = g.Key.CategoryId,
+					CategoryName = g.Key.Name,
+					TotalAmount = g.Sum(e => e.Amount)
+					//ExpenseCount = g.Count()
+				});
+		}
 	}
 }

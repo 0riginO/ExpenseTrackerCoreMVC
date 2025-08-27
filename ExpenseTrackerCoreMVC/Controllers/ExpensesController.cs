@@ -88,5 +88,11 @@ namespace ExpenseTrackerCoreMVC.Controllers
 			await _expensesService.Delete(id);
 			return RedirectToAction("Index");
 		}
+		[HttpGet]
+		public IActionResult GetExpensesGroupedByCategory()
+		{
+			var groupedExpenses = _expensesService.GetExpensesGroupedByCategory();
+			return Json(groupedExpenses);
+		}
 	}
 }
