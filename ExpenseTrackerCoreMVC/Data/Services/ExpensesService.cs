@@ -99,5 +99,16 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 				.OrderByDescending(x => x.TotalAmount) // sort by total descending
 				.Take(num); // get only top 5
 		}
+
+		public IQueryable GetExpenseFrequencyByCategory()
+		{ 
+			return _context.Expenses
+				.GroupBy(e => new { e.CategoryId, e.Category.Name })
+				.Select(g => new
+				{
+					CategoryName = g.Key.Name,
+					ExpenseCount = g.Count()
+				});
+		}
 	}
 }

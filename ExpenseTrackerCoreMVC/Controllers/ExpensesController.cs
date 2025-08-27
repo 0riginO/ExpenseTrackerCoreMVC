@@ -112,5 +112,11 @@ namespace ExpenseTrackerCoreMVC.Controllers
 			var groupedExpenses = _expensesService.GetTopNExpensesByCategory(num);
 			return Json(groupedExpenses);
 		}
+		[HttpGet]
+		public IActionResult GetExpenseFrequencyByCategory()
+		{
+			var groupedExpenses = _expensesService.GetExpenseFrequencyByCategory();
+			return Json(groupedExpenses);
+		}
 	}
 }
