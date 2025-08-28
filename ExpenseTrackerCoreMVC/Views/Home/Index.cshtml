@@ -2,7 +2,7 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
+<div class="text-center my-4">
     <h1 class="display-4">Dashboard</h1>
 </div>
 <div class="container-fluid">
@@ -63,6 +63,17 @@
                         data: data.map(d => d.totalAmount),
                     }]
                 },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Total Expenses Per Category',
+                            font: {
+                                size: 18
+                            }
+                        }
+                    }
+                }
             });
         });
 
@@ -76,10 +87,23 @@
                 data: {
                     labels: data.map(d => d.dateAdded),
                     datasets: [{
-                        label: 'Expenses Over Time',
                         data: data.map(d => d.totalAmount),
                     }],
                 },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,              
+                            text: 'Expenses Over Time',
+                            font: {
+                                size: 18
+                            }
+                        }
+                    }
+                }
             });
         });
 
@@ -93,7 +117,6 @@
                 data: {
                     labels: data.map(d => d.categoryName),
                     datasets: [{
-                        label: 'Average Expense per Category',
                         data: data.map(d => d.averageAmount),
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -107,6 +130,20 @@
                         borderWidth: 1
                     }],
                 },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Average Expense Per Category',
+                            font: {
+                                size: 18
+                            }
+                        }
+                    }
+                }
             });
         });
 
@@ -120,13 +157,32 @@
                 data: {
                     labels: data.map(d => d.categoryName),
                     datasets: [{
-                        label: 'Top Categories',
                         data: data.map(d => d.totalAmount),
-                        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+                        backgroundColor: [
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                        ],
                     }]
                 },
                 options: {
-                    indexAxis: 'y'
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Top Categories',
+                            font: {
+                                size: 18
+                            }
+                        }
+                    }
                 }
             });
         });
@@ -141,38 +197,32 @@
                 data: {
                     labels: data.map(d => d.categoryName),
                     datasets: [{
-                        label: 'Number of Expenses',
                         data: data.map(d => d.expenseCount),
-                        backgroundColor: 'rgba(255, 159, 64, 0.7)'
-                    }]
-                }
-            });
-        });
-
-    const avgExpensesChart = document.getElementById('chartAvgExpenses');
-
-    fetch('/Expenses/GetAvgExpensesByCategory')
-        .then(res => res.json())
-        .then(data => {
-            new Chart(avgExpensesChart, {
-                type: 'bar',
-                data: {
-                    labels: data.map(d => d.categoryName),
-                    datasets: [{
-                        label: 'Average Expenses per Category',
-                        data: data.map(d => d.averageAmount),
                         backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(255, 159, 64, 0.2)',
                             'rgba(255, 205, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
                             'rgba(153, 102, 255, 0.2)',
                             'rgba(201, 203, 207, 0.2)'
                         ],
-                        borderWidth: 1
                     }]
                 },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Number of Expenses',
+                            font: {
+                                size: 18
+                            }
+                        }
+                    }
+                }
             });
         });
 </script>
