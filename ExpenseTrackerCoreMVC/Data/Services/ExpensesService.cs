@@ -71,7 +71,7 @@ namespace ExpenseTrackerCoreMVC.Data.Services
 				.GroupBy(e => e.DateAdded)
 				.Select(d => new
 				{
-					DateAdded = d.Key,
+					DateAdded = d.Key.ToString("yyyy-MM-dd"),
 					TotalAmount = d.Sum(e => e.Amount)
 				});
 		}
